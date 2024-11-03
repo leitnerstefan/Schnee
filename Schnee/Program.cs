@@ -5,12 +5,14 @@ using Schnee.Components;
 using Schnee.Components.Account;
 using Pomelo.EntityFrameworkCore.MySql;
 using Schnee.Data;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddMudServices();
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
