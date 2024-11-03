@@ -1,6 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@inject NavigationManager NavigationManager
+@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider Theme="darkTheme" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -24,10 +25,61 @@
 @code {
     bool _drawerOpen = true;
 
+    protected async override Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+    }
+
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
     }
+
+    protected override void OnInitialized()
+    {
+        currentTheme = darkTheme;
+
+    }
+
+    MudTheme currentTheme = new MudTheme();
+    MudTheme defaultTheme = new MudTheme()
+    {
+            PaletteLight = new PaletteLight()
+            {
+                Black = "#272c34",
+                Primary = "#1976D2",
+                AppbarBackground = "#2ba069",
+            }
+    };
+
+    MudTheme darkTheme = new MudTheme()
+        {
+            PaletteDark = new PaletteDark()
+            {
+                Black = "#27272f",
+                Background = "#32333d",
+                BackgroundGray = "#27272f",
+                Surface = "#373740",
+                DrawerBackground = "#32333d",
+                DrawerText = "rgba(255,255,255, 0.50)",
+                //DrawerIcon = "#2ba069",
+                DrawerIcon = "#22a5fd",
+                //AppbarBackground = "#2ba069",
+                AppbarBackground = "#32333d",
+                AppbarText = "rgba(255,255,255, 0.70)",
+                TextPrimary = "rgba(255,255,255, 0.70)",
+
+                TextSecondary = "rgba(255,255,255, 0.50)",
+                ActionDefault = "#adadb1",
+                ActionDisabled = "rgba(255,255,255, 0.26)",
+                ActionDisabledBackground = "rgba(255,255,255, 0.12)",
+                Primary = "#006600", //22a5fd
+                Success = "#2ba069",
+                TextDisabled = "#ffffff42",
+                TableHover = "rgba(217, 217, 217, 0.17)"
+            }
+        };
+
 }
 
 @* <div class="page">
