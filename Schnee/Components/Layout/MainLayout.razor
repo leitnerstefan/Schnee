@@ -7,7 +7,7 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="1">
+    <MudAppBar Elevation="1" Style="background-color:#247719">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Schneeanlage</MudText>
         <MudSpacer />
@@ -22,12 +22,24 @@
 </MudLayout>
 @code {
     bool _drawerOpen = true;
+    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
         base.OnInitialized();
         
+        var user = (await AuthStat).User;
 
+        string url = NavigationManager.Uri; // UriHelper.GetAbsoluteUri();
+
+        if (!url.Contains("api"))
+        {
+
+            if (!user.Identity.IsAuthenticated)
+            {
+                //NavigationManager.NavigateTo($"/Account/Login");
+            }
+        }
     }
 
     void DrawerToggle()
@@ -45,16 +57,7 @@
     }
 
     MudTheme currentTheme = new MudTheme();
-    MudTheme defaultTheme = new MudTheme()
-    {
-            PaletteLight = new PaletteLight()
-            {
-                Black = "#272c34",
-                Primary = "#1976D2",
-                AppbarBackground = "#2ba069",
-            }
-    };
-
+    
     MudTheme darkTheme = new MudTheme()
         {
             PaletteDark = new PaletteDark()
@@ -65,18 +68,18 @@
                 Surface = "#373740",
                 DrawerBackground = "#32333d",
                 DrawerText = "rgba(255,255,255, 0.50)",
-                //DrawerIcon = "#2ba069",
-                DrawerIcon = "#22a5fd",
+                DrawerIcon = "#2ba069",
+                //DrawerIcon = "#22a5fd",
                 //AppbarBackground = "#2ba069",
                 AppbarBackground = "#32333d",
-                AppbarText = "rgba(255,255,255, 0.70)",
+                AppbarText = "rgba(255,255,0, 0.70)",
                 TextPrimary = "rgba(255,255,255, 0.70)",
 
                 TextSecondary = "rgba(255,255,255, 0.50)",
                 ActionDefault = "#adadb1",
                 ActionDisabled = "rgba(255,255,255, 0.26)",
                 ActionDisabledBackground = "rgba(255,255,255, 0.12)",
-                Primary = "#006600", //22a5fd
+                Primary = "#22a5fd", //22a5fd //#006600
                 Success = "#2ba069",
                 TextDisabled = "#ffffff42",
                 TableHover = "rgba(217, 217, 217, 0.17)"
@@ -100,7 +103,7 @@
                 ActionDefault = "#adadb1",
                 ActionDisabled = "rgba(255,255,255, 0.26)",
                 ActionDisabledBackground = "rgba(255,255,255, 0.12)",
-                Primary = "#006600", //22a5fd
+                Primary = "#22a5fd", //22a5fd
                 Success = "#2ba069",
                 TextDisabled = "#ffffff42",
                 TableHover = "rgba(217, 217, 217, 0.17)"

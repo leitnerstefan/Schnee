@@ -1,8 +1,8 @@
-﻿@* @implements IDisposable *@
+﻿@implements IDisposable
 
 @inject NavigationManager NavigationManager
-
-@*<MudNavMenu>
+@*
+<MudNavMenu>
     <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
     <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Servers</MudNavLink>
     <MudNavGroup Title="Settings" Expanded="true">
@@ -11,12 +11,12 @@
     </MudNavGroup>
     <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">About</MudNavLink>
 </MudNavMenu>
- *@
- <div class="top-row ps-3 navbar navbar-dark">
+
+ *@ <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Schnee</a>
     </div>
-</div>
+</div> 
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
