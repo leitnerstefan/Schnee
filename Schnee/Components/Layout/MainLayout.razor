@@ -5,44 +5,38 @@
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
+<MudBreakpointProvider />
 
-<MudLayout>
-    <MudAppBar Elevation="1" Style="background-color:#247719">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+<MudLayout Class="nav-scrollable">
+    <MudAppBar Elevation="1" Style="background-color:#b78d4d">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" />
         <MudText Typo="Typo.h5" Class="ml-3">Schneeanlage</MudText>
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        @Body 
+        <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+            @Body 
+        </MudContainer>
     </MudMainContent>
 </MudLayout>
 @code {
-    bool _drawerOpen = true;
-    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+
+    
+    private bool _drawerOpen = true;
+    
 
     protected async override Task OnInitializedAsync()
     {
         base.OnInitialized();
+
         
-        var user = (await AuthStat).User;
-
-        string url = NavigationManager.Uri; // UriHelper.GetAbsoluteUri();
-
-        if (!url.Contains("api"))
-        {
-
-            if (!user.Identity.IsAuthenticated)
-            {
-                //NavigationManager.NavigateTo($"/Account/Login");
-            }
-        }
     }
 
-    void DrawerToggle()
+    private void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
         
