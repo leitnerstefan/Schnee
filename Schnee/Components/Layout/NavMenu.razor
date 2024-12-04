@@ -1,22 +1,40 @@
 ﻿@implements IDisposable
 
 @inject NavigationManager NavigationManager
-<MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All" Class="Custom_Link">Dashboard</MudNavLink>
-    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Servers</MudNavLink>
-    <MudNavGroup Title="Settings" Expanded="true">
-        <MudNavLink Href="/users" Match="NavLinkMatch.Prefix">Users</MudNavLink>
-        <MudNavLink Href="/security" Match="NavLinkMatch.Prefix">Security</MudNavLink>
-    </MudNavGroup>
-    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">About</MudNavLink>
-    <MudNavLink Href="/Account/Login" Match="NavLinkMatch.Prefix">Login</MudNavLink>
+
+    <MudNavMenu>
+    <AuthorizeView> @* Roles="Administrators" *@
+        <Authorized>
+        <MudPaper Width="250px" Elevation="0" Class="py-3">
+            <MudNavMenu Color="Color.Primary" Bordered="true">
+                <MudNavLink Href="/" Match="NavLinkMatch.All" Class="Custom_Link">Dashboard</MudNavLink>
+                <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Servers</MudNavLink>
+                <MudNavGroup Title="Settings" Expanded="true">
+                    <MudNavLink Href="/users" Match="NavLinkMatch.Prefix">Users</MudNavLink>
+                    <MudNavLink Href="/security" Match="NavLinkMatch.Prefix">Security</MudNavLink>
+                </MudNavGroup>
+                <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">About</MudNavLink>
+                <form action="Account/Logout" method="post">
+                        <AntiforgeryToken />
+                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                        <button type="submit" class="nav-link">
+                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                        </button>
+                    </form>
+            </MudNavMenu>
+        </MudPaper>
+        </Authorized>
+        <NotAuthorized>
+            <MudNavLink Href="/Account/Login" Match="NavLinkMatch.Prefix">Login</MudNavLink>
+        </NotAuthorized>
+    </AuthorizeView>
 </MudNavMenu>
 
- 
+ @*
 
-@* <input type="checkbox" title="Navigation menu" class="navbar-toggler" /> *@
+ <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
-@*
+
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
@@ -51,13 +69,7 @@
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
-                    <form action="Account/Logout" method="post">
-                        <AntiforgeryToken />
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <button type="submit" class="nav-link">
-                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
-                        </button>
-                    </form>
+                    
                 </div>
             </Authorized>
             <NotAuthorized>
@@ -74,8 +86,8 @@
             </NotAuthorized>
         </AuthorizeView>
     </nav>
-</div>
-*@ 
+</div>*@
+ 
 @code {
     private string? currentUrl;
 

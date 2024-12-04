@@ -28,26 +28,19 @@
     
     private bool _drawerOpen = true;
     
-
     protected async override Task OnInitializedAsync()
     {
-        base.OnInitialized();
-
-        
+        base.OnInitialized();        
     }
 
     private void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
-        
     }
 
     protected override void OnInitialized()
     {
-
         currentTheme = darkTheme;
-        
-        
     }
 
     MudTheme currentTheme = new MudTheme();
@@ -73,8 +66,8 @@
                 ActionDefault = "#adadb1",
                 ActionDisabled = "rgba(255,255,255, 0.26)",
                 ActionDisabledBackground = "rgba(255,255,255, 0.12)",
-                Primary = "#22a5fd", //22a5fd //#006600
-                Success = "#2ba069",
+                Primary = "#b78d4d", //22a5fd //#006600
+                Success = "#b78d4d",
                 TextDisabled = "#ffffff42",
                 TableHover = "rgba(217, 217, 217, 0.17)"
             },
@@ -105,25 +98,3 @@
         };
 
 }
-
-@* <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
-
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div> *@
